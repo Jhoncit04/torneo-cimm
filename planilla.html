@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Planilla Oficial Microfutbol</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;font-size:9px;color:#000;padding:8px;max-width:210mm;margin:0 auto}
+table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #000;padding:2px 3px;vertical-align:middle}
+
+.header-table{margin-bottom:6px;border:2px solid #000}
+.header-table td{font-size:10px;padding:4px 6px}
+.header-table .label{font-weight:bold;background:#f0f0f0}
+
+.equipo-block{margin-bottom:6px;border:2px solid #000}
+.equipo-titulo{background:#000;color:#fff;font-weight:bold;font-size:10px;padding:4px 6px}
+.equipo-info td{font-size:9px;padding:3px 5px;background:#f9f9f9}
+
+.planilla-table{width:100%;border-collapse:collapse}
+.planilla-table td,.planilla-table th{border:1px solid #000;padding:1px 2px;text-align:center;font-size:8px}
+.planilla-table th{background:#ccc;font-weight:bold;font-size:7.5px;padding:3px 1px}
+.planilla-table .nombre-th{text-align:left;padding-left:4px;width:150px}
+.planilla-table .nombre-td{text-align:left;padding-left:4px;font-size:8px;height:16px}
+.planilla-table .num-th{width:16px}
+.planilla-table .faltas-th{width:35px}
+.planilla-table .tarjeta-th{width:20px}
+.planilla-table .gol-th{width:13px;font-size:7px;color:#333}
+.planilla-table .gol-td{width:13px;font-size:7px;color:#999}
+
+.firma-row{border:none}
+.firma-row td{border:none;padding:8px 4px;font-size:9px}
+
+.penales-block{margin-top:6px;border:2px solid #000}
+.penales-block td{font-size:9px;padding:3px 5px}
+.penales-titulo{background:#000;color:#fff;font-weight:bold;font-size:9px;padding:3px 6px}
+
+.ganador-row{background:#fff;color:#000;font-weight:bold;font-size:10px;text-align:center;padding:4px;border:2px solid #000}
+
+@media print{
+    body{padding:4px;font-size:8px}
+    @page{size:A4 portrait;margin:6mm}
+    .equipo-block{page-break-inside:avoid}
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ENCABEZADO -->
+<table class="header-table">
+<tr>
+    <td class="label" style="width:70px">TORNEO:</td>
+    <td colspan="3">TORNEO RELAMPAGO CIMM DUITAMA</td>
+    <td class="label" style="width:60px">CIUDAD:</td>
+    <td>DUITAMA</td>
+</tr>
+<tr>
+    <td class="label">FECHA:</td>
+    <td id="hFecha" colspan="3"></td>
+    <td class="label">PLANILLA #:</td>
+    <td id="hNumero">001</td>
+</tr>
+</table>
+
+<!-- EQUIPO A -->
+<div class="equipo-block">
+<table>
+<tr><td class="equipo-titulo" colspan="10" id="eqATitulo">EQUIPO: -</td></tr>
+<tr class="equipo-info">
+    <td colspan="3"><b>COLOR:</b> ________________</td>
+    <td colspan="4"><b>SOLICITUD TIEMPO:</b> &nbsp;1er T: [&nbsp;] &nbsp; 2do T: [&nbsp;]</td>
+    <td colspan="3"><b>FALTAS ACUMULATIVAS:</b></td>
+</tr>
+<tr class="equipo-info">
+    <td colspan="7"></td>
+    <td colspan="1" style="text-align:center;font-size:8px"><b>1er TIEMPO:</b> [1] [2] [3] [4] [5]</td>
+    <td colspan="2" style="text-align:center;font-size:8px"><b>2do TIEMPO:</b> [1] [2] [3] [4] [5]</td>
+</tr>
+</table>
+<table class="planilla-table" id="tablaA">
+<tr>
+    <th class="num-th">#</th>
+    <th class="nombre-th">NOMBRE DEL JUGADOR</th>
+    <th class="faltas-th">FALTAS PERS.</th>
+    <th class="tarjeta-th">AM</th>
+    <th class="tarjeta-th">RO</th>
+    <th class="gol-th">1</th><th class="gol-th">2</th><th class="gol-th">3</th>
+    <th class="gol-th">4</th><th class="gol-th">5</th><th class="gol-th">6</th>
+    <th class="gol-th">7</th><th class="gol-th">8</th><th class="gol-th">9</th>
+    <th class="gol-th">10</th><th class="gol-th">11</th><th class="gol-th">12</th>
+    <th class="gol-th">13</th><th class="gol-th">14</th><th class="gol-th">15</th>
+</tr>
+</table>
+<table>
+<tr class="firma-row">
+    <td style="width:40%"><b>FIRMA CAPITAN:</b> ____________________</td>
+    <td style="width:40%"><b>FIRMA DELEGADO:</b> ____________________</td>
+    <td style="width:20%;text-align:right"><b>TOTAL GOLES:</b> [&nbsp;&nbsp;&nbsp;]</td>
+</tr>
+</table>
+</div>
+
+<!-- EQUIPO B -->
+<div class="equipo-block">
+<table>
+<tr><td class="equipo-titulo" colspan="10" id="eqBTitulo">EQUIPO: -</td></tr>
+<tr class="equipo-info">
+    <td colspan="3"><b>COLOR:</b> ________________</td>
+    <td colspan="4"><b>SOLICITUD TIEMPO:</b> &nbsp;1er T: [&nbsp;] &nbsp; 2do T: [&nbsp;]</td>
+    <td colspan="3"><b>FALTAS ACUMULATIVAS:</b></td>
+</tr>
+<tr class="equipo-info">
+    <td colspan="7"></td>
+    <td colspan="1" style="text-align:center;font-size:8px"><b>1er TIEMPO:</b> [1] [2] [3] [4] [5]</td>
+    <td colspan="2" style="text-align:center;font-size:8px"><b>2do TIEMPO:</b> [1] [2] [3] [4] [5]</td>
+</tr>
+</table>
+<table class="planilla-table" id="tablaB">
+<tr>
+    <th class="num-th">#</th>
+    <th class="nombre-th">NOMBRE DEL JUGADOR</th>
+    <th class="faltas-th">FALTAS PERS.</th>
+    <th class="tarjeta-th">AM</th>
+    <th class="tarjeta-th">RO</th>
+    <th class="gol-th">1</th><th class="gol-th">2</th><th class="gol-th">3</th>
+    <th class="gol-th">4</th><th class="gol-th">5</th><th class="gol-th">6</th>
+    <th class="gol-th">7</th><th class="gol-th">8</th><th class="gol-th">9</th>
+    <th class="gol-th">10</th><th class="gol-th">11</th><th class="gol-th">12</th>
+    <th class="gol-th">13</th><th class="gol-th">14</th><th class="gol-th">15</th>
+</tr>
+</table>
+<table>
+<tr class="firma-row">
+    <td style="width:40%"><b>FIRMA CAPITAN:</b> ____________________</td>
+    <td style="width:40%"><b>FIRMA DELEGADO:</b> ____________________</td>
+    <td style="width:20%;text-align:right"><b>TOTAL GOLES:</b> [&nbsp;&nbsp;&nbsp;]</td>
+</tr>
+</table>
+</div>
+
+<!-- PENALES Y RESULTADO -->
+<div class="penales-block">
+<table>
+<tr><td class="penales-titulo" colspan="10">DEFINICION POR PENALES Y RESULTADO FINAL</td></tr>
+<tr>
+    <td style="width:80px"><b>EQUIPO A</b></td>
+    <td>Cobros:</td><td style="width:30px;text-align:center">[&nbsp;]</td><td style="width:30px;text-align:center">[&nbsp;]</td><td style="width:30px;text-align:center">[&nbsp;]</td>
+    <td style="width:30px;text-align:center">[&nbsp;]</td><td style="width:30px;text-align:center">[&nbsp;]</td>
+    <td colspan="3"><b>RESULTADO FINAL A:</b> [&nbsp;&nbsp;]</td>
+</tr>
+<tr>
+    <td><b>EQUIPO B</b></td>
+    <td>Cobros:</td><td style="text-align:center">[&nbsp;]</td><td style="text-align:center">[&nbsp;]</td><td style="text-align:center">[&nbsp;]</td>
+    <td style="text-align:center">[&nbsp;]</td><td style="text-align:center">[&nbsp;]</td>
+    <td colspan="3"><b>RESULTADO FINAL B:</b> [&nbsp;&nbsp;]</td>
+</tr>
+</table>
+</div>
+
+<table style="margin-top:10px">
+<tr class="firma-row">
+    <td style="width:50%"><b>FIRMA ARBITRO CENTRAL:</b> ________________________</td>
+    <td style="width:50%"><b>FIRMA PLANILLERO:</b> ________________________</td>
+</tr>
+</table>
+
+<table style="margin-top:4px"><tr><td class="ganador-row" id="ganadorFinal">EQUIPO GANADOR: ________________________</td></tr></table>
+
+<script>
+function generarFilas(tabla, nomina) {
+    var html = '';
+    for (var i = 0; i < 10; i++) {
+        var nombre = (nomina && nomina[i]) ? nomina[i] : '';
+        html += '<tr>'
+            +'<td style="text-align:center;width:16px">'+(i+1)+'</td>'
+            +'<td class="nombre-td">'+nombre+'</td>'
+            +'<td style="text-align:center;width:35px">| | |</td>'
+            +'<td style="text-align:center;width:20px">[ ]</td>'
+            +'<td style="text-align:center;width:20px">[ ]</td>'
+            +'<td class="gol-td"></td><td class="gol-td"></td><td class="gol-td"></td>'
+            +'<td class="gol-td"></td><td class="gol-td"></td><td class="gol-td"></td>'
+            +'<td class="gol-td"></td><td class="gol-td"></td><td class="gol-td"></td>'
+            +'<td class="gol-td"></td><td class="gol-td"></td><td class="gol-td"></td>'
+            +'<td class="gol-td"></td><td class="gol-td"></td><td class="gol-td"></td>'
+            +'</tr>';
+    }
+    tabla.innerHTML += html;
+}
+
+try {
+    var datos = JSON.parse(localStorage.getItem('planillaPartido') || '{}');
+    if (!datos.equipo1) {
+        document.body.innerHTML = '<h2 style="text-align:center;margin-top:40px;font-size:14px">No hay datos. Genera la planilla desde el Fixture.</h2>';
+    } else {
+        // Numero de planilla auto-incremental
+        var numPlanilla = parseInt(localStorage.getItem('planillaContador') || '0', 10) + 1;
+        localStorage.setItem('planillaContador', String(numPlanilla));
+        document.getElementById('hNumero').textContent = String(numPlanilla).padStart(3, '0');
+
+        // Fecha
+        document.getElementById('hFecha').textContent = datos.fecha || new Date().toLocaleDateString('es-CO');
+
+        // Equipo A
+        document.getElementById('eqATitulo').textContent = 'EQUIPO: ' + datos.equipo1.toUpperCase();
+        generarFilas(document.getElementById('tablaA'), datos.nominaA);
+
+        // Equipo B
+        document.getElementById('eqBTitulo').textContent = 'EQUIPO: ' + datos.equipo2.toUpperCase();
+        generarFilas(document.getElementById('tablaB'), datos.nominaB);
+
+        // Imprimir automaticamente
+        window.onload = function(){ window.print(); };
+    }
+} catch(e) {
+    document.body.innerHTML = '<p style="color:red;text-align:center;margin-top:40px">Error: '+e.message+'</p>';
+}
+</script>
+</body>
+</html>
