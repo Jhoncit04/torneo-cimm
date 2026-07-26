@@ -1141,22 +1141,38 @@ function renderizarPartidos() {
             var btnDesplegar = modoOrganizador
                 ? '<button onclick="toggleControles(\'ctrl-'+p.id+'\')" class="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-white transition"><span id="flecha-'+p.id+'" class="text-sm transition-transform '+flechaRotada+'">&#9660;</span></button>'
                 : '';
+
+            // Determinar ganador para resaltado visual
+            var m1 = Number(p.marcador1)||0, m2 = Number(p.marcador2)||0;
+            var pen1 = Number(p.penales1)||0, pen2 = Number(p.penales2)||0;
+            var esFinal = p.estadoPartido === 'finalizado';
+            var gano1 = esFinal && (m1 > m2 || (m1 === m2 && pen1 > pen2));
+            var gano2 = esFinal && (m2 > m1 || (m1 === m2 && pen2 > pen1));
+            var empateConPen = esFinal && m1 === m2 && (pen1 > 0 || pen2 > 0);
+
+            var estilo1 = gano1 ? 'bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-1.5' : '';
+            var estilo2 = gano2 ? 'bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-1.5' : '';
+            var textoEq1 = gano1 ? 'text-emerald-300' : 'text-slate-200';
+            var textoEq2 = gano2 ? 'text-emerald-300' : 'text-slate-200';
+            var textoM1 = gano1 ? 'text-emerald-400' : 'text-emerald-400';
+            var textoM2 = gano2 ? 'text-emerald-400' : 'text-emerald-400';
+            var penLabel = empateConPen ? '<div class="flex justify-center mt-1"><span class="text-[10px] font-black text-purple-300 bg-purple-500/20 border border-purple-500/30 rounded-full px-2 py-0.5">('+pen1+' - '+pen2+' Pen.)</span></div>' : '';
+
             return '<div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">'
                 +'<div class="flex justify-between items-center mb-3">'
                 +'<span class="text-[10px] font-bold text-slate-500 uppercase">'+fmtFecha(p.fecha)+'</span>'
                 +'<div class="flex items-center gap-2">'+badge+btnDesplegar+'</div>'
                 +'</div>'
-                +'<div class="flex items-center justify-between gap-2 mb-2">'
+                +'<div class="flex items-center justify-between gap-2 mb-2 py-1 '+estilo1+'">'
                 +'<div class="flex items-center gap-2 flex-1 min-w-0">'+escudoHtml(p.escudo1,p.equipo1)
-                +'<span class="font-bold text-slate-200 text-xs truncate">'+(p.equipo1||'-')+'</span></div>'
-                +'<span class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 font-black text-emerald-400 text-lg min-w-[2ch] text-center">'+(p.marcador1!=null?p.marcador1:0)+'</span></div>'
-                +'<div class="flex items-center justify-between gap-2">'
+                +'<span class="font-bold '+textoEq1+' text-xs truncate">'+(p.equipo1||'-')+'</span></div>'
+                +'<span class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 font-black '+textoM1+' text-lg min-w-[2ch] text-center">'+(p.marcador1!=null?p.marcador1:0)+'</span></div>'
+                +'<div class="flex items-center justify-between gap-2 py-1 '+estilo2+'">'
                 +'<div class="flex items-center gap-2 flex-1 min-w-0">'+escudoHtml(p.escudo2,p.equipo2)
-                +'<span class="font-bold text-slate-200 text-xs truncate">'+(p.equipo2||'-')+'</span></div>'
-                +'<span class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 font-black text-emerald-400 text-lg min-w-[2ch] text-center">'+(p.marcador2!=null?p.marcador2:0)+'</span></div>'
-                +'<div class="flex justify-center mt-3">'
-                +'<span class="font-mono font-bold text-white bg-slate-800 px-3 py-1 rounded-lg text-sm tracking-widest reloj-partido" data-id="'+p.id+'">'+fmtTiempo(segundosTrans(p))+'</span>'
-                +'</div>'
+                +'<span class="font-bold '+textoEq2+' text-xs truncate">'+(p.equipo2||'-')+'</span></div>'
+                +'<span class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 font-black '+textoM2+' text-lg min-w-[2ch] text-center">'+(p.marcador2!=null?p.marcador2:0)+'</span></div>'
+                +penLabel
+                + (p.estadoPartido==='en_vivo' ? '<div class="flex justify-center mt-3"><span class="font-mono font-bold text-white bg-slate-800 px-3 py-1 rounded-lg text-sm tracking-widest reloj-partido" data-id="'+p.id+'">'+fmtTiempo(segundosTrans(p))+'</span></div>' : '')
                 +'<div id="ctrl-'+p.id+'" class="'+colapsado+' transition-all">'+controles+'</div>'
                 +'</div>';
         }).join('');
