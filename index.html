@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torneo Relámpago Microfútbol - CIMM Duitama</title>
+    <link rel="icon" type="image/png" href="ICONPAGE.png">
+    <link rel="apple-touch-icon" href="ICONPAGE.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -52,9 +54,7 @@
     <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto justify-between md:justify-start">
             <div class="flex items-center gap-3">
-                <div class="bg-slate-900 p-2 rounded-lg text-emerald-400">
-                    <i data-lucide="trophy" class="w-7 h-7"></i>
-                </div>
+                <img src="ICONPAGE.png" alt="Logo Torneo" class="w-14 h-14 object-contain">
                 <div>
                     <h1 class="text-xl font-black tracking-wider uppercase text-white">Torneo Relámpago Microfútbol</h1>
                     <p class="text-xs text-emerald-100 font-medium">SENA CIMM — Subsede Ciudadela Duitama</p>
@@ -148,10 +148,15 @@
                 <i data-lucide="clipboard-pen" class="w-6 h-6 text-emerald-400"></i> Inscripción de Equipo
             </h2>
             <form id="registroForm" class="space-y-6">
+                <!-- Nota informativa -->
+                <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-4 py-3 flex items-start gap-2">
+                    <span class="text-sm flex-shrink-0">📌</span>
+                    <p class="text-[11px] text-slate-300"><strong class="text-emerald-400">Nota:</strong> Los nombres del equipo, capitan y nomina de jugadores se registraran automaticamente en MAYUSCULAS sostenidas para mantener el orden de la base de datos.</p>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Nombre del Equipo</label>
-                        <input type="text" id="nombreEquipo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500" placeholder="Ej: Los Galacticos FC">
+                        <input type="text" id="nombreEquipo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500 uppercase" placeholder="Ej: LOS GALACTICOS FC" style="text-transform:uppercase">
                         <p id="errorNombreDuplicado" class="hidden text-[11px] text-rose-400 font-bold mt-1">Este nombre de equipo ya existe. Elige otro.</p>
                     </div>
                     <div>
@@ -160,7 +165,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Capitán / Responsable</label>
-                        <input type="text" id="capitanEquipo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500" placeholder="Nombre completo">
+                        <input type="text" id="capitanEquipo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500 uppercase" placeholder="NOMBRE COMPLETO" style="text-transform:uppercase">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -180,7 +185,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Nómina de Jugadores (Máx. 8)</label>
                     <p class="text-[11px] text-slate-500 mb-2">Escribe cada jugador con su primer apellido y su primer nombre de la siguiente manera: <span class="text-emerald-400 font-bold">APELLIDO NOMBRE</span>. Separa con coma o salto de linea (ENTER). Ej: <span class="font-mono text-slate-400">GARCIA ANDRES, LOPEZ JUAN</span></p>
-                    <textarea id="nominaEquipo" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="APELLIDO NOMBRE, APELLIDO NOMBRE, ..."></textarea>
+                    <textarea id="nominaEquipo" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white text-sm focus:outline-none focus:border-emerald-500 uppercase" placeholder="APELLIDO NOMBRE, APELLIDO NOMBRE, ..." style="text-transform:uppercase"></textarea>
                     <div id="nominaPreview" class="hidden mt-2 p-3 bg-slate-800/60 border border-slate-700 rounded-lg">
                         <p class="text-[10px] font-bold uppercase text-slate-500 mb-2">Jugadores detectados: <span id="nominaCount" class="text-emerald-400">0</span>/8</p>
                         <div id="nominaTags" class="flex flex-wrap gap-1.5"></div>
@@ -811,11 +816,11 @@ function bindFormulario() {
             var esc = await archivoABase64(document.getElementById('escudoEquipo').files[0]);
             var comp = await archivoABase64(document.getElementById('comprobantePago').files[0]);
             var p = new URLSearchParams();
-            p.append('nombre', document.getElementById('nombreEquipo').value);
+            p.append('nombre', document.getElementById('nombreEquipo').value.toUpperCase().trim());
             p.append('ficha', document.getElementById('fichaEquipo').value);
-            p.append('capitan', document.getElementById('capitanEquipo').value);
+            p.append('capitan', document.getElementById('capitanEquipo').value.toUpperCase().trim());
             p.append('whatsapp', document.getElementById('whatsappEquipo').value);
-            p.append('nomina', document.getElementById('nominaEquipo').value);
+            p.append('nomina', document.getElementById('nominaEquipo').value.toUpperCase().trim());
             p.append('escudoData', esc.data); p.append('escudoType', esc.type);
             p.append('comprobanteData', comp.data); p.append('comprobanteType', comp.type);
             await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: p.toString() });
@@ -870,6 +875,42 @@ async function enviarPost(params) {
     setTimeout(cargarPartidos, 1200);
 }
 
+// ─── SEGURIDAD ORGANIZADOR ────────────────────────────────────────────────────
+function verificarPinOrganizador() {
+    // Verificar bloqueo
+    if (localStorage.getItem('organizadorBloqueado') === 'true') {
+        alert('Acceso bloqueado por seguridad tras 3 intentos fallidos. Comunicate directamente con el Organizador para restablecer el acceso.');
+        return false;
+    }
+    var pin = prompt('Ingresa el PIN de organizador:');
+    if (pin === null) return false;
+    if (pin === PIN_ORGANIZADOR) {
+        // Exito: resetear contador
+        localStorage.removeItem('intentosFallidos');
+        localStorage.removeItem('organizadorBloqueado');
+        return true;
+    } else {
+        // Fallo: incrementar contador
+        var intentos = parseInt(localStorage.getItem('intentosFallidos') || '0', 10) + 1;
+        localStorage.setItem('intentosFallidos', String(intentos));
+        if (intentos >= 3) {
+            localStorage.setItem('organizadorBloqueado', 'true');
+            alert('Acceso bloqueado por seguridad tras 3 intentos fallidos. Comunicate directamente con el Organizador para restablecer el acceso.');
+        } else {
+            alert('PIN incorrecto. Intentos restantes: ' + (3 - intentos));
+        }
+        return false;
+    }
+}
+
+// Funcion maestra para desbloquear (ejecutar desde consola: desbloquearAdmin())
+function desbloquearAdmin() {
+    localStorage.removeItem('organizadorBloqueado');
+    localStorage.removeItem('intentosFallidos');
+    alert('Acceso de organizador restablecido exitosamente.');
+    location.reload();
+}
+
 // ─── MODO ORGANIZADOR ────────────────────────────────────────────────────────
 function alternarModoOrganizador() {
     if (modoOrganizador) {
@@ -880,17 +921,13 @@ function alternarModoOrganizador() {
         renderizarPartidos();
         return;
     }
-    var pin = prompt('Ingresa el PIN de organizador:');
-    if (pin === PIN_ORGANIZADOR) {
-        modoOrganizador = true;
-        document.getElementById('panelCrearPartido').classList.remove('hidden');
-        document.getElementById('btnModoOrganizador').innerHTML = '<i data-lucide="lock-open" class="w-4 h-4"></i> Salir del Modo Organizador';
-        refrescarIconos();
-        cargarEquiposRegistrados();
-        renderizarPartidos();
-    } else if (pin !== null) {
-        alert('PIN incorrecto.');
-    }
+    if (!verificarPinOrganizador()) return;
+    modoOrganizador = true;
+    document.getElementById('panelCrearPartido').classList.remove('hidden');
+    document.getElementById('btnModoOrganizador').innerHTML = '<i data-lucide="lock-open" class="w-4 h-4"></i> Salir del Modo Organizador';
+    refrescarIconos();
+    cargarEquiposRegistrados();
+    renderizarPartidos();
 }
 
 // ─── CARGAR DATOS ────────────────────────────────────────────────────────────
@@ -1518,15 +1555,11 @@ function alternarModoOrgStats() {
         renderizarEstadisticas();
         return;
     }
-    var pin = prompt('Ingresa el PIN de organizador:');
-    if (pin === PIN_ORGANIZADOR) {
-        modoOrgStats = true;
-        document.getElementById('btnModoOrgStats').innerHTML = '<i data-lucide="lock-open" class="w-4 h-4"></i> Salir del Modo Organizador';
-        refrescarIconos();
-        renderizarEstadisticas();
-    } else if (pin !== null) {
-        alert('PIN incorrecto.');
-    }
+    if (!verificarPinOrganizador()) return;
+    modoOrgStats = true;
+    document.getElementById('btnModoOrgStats').innerHTML = '<i data-lucide="lock-open" class="w-4 h-4"></i> Salir del Modo Organizador';
+    refrescarIconos();
+    renderizarEstadisticas();
 }
 
 // ─── LEVANTAR SUSPENSION ─────────────────────────────────────────────────────
@@ -1588,8 +1621,7 @@ function obtenerGanador(p) {
 var avancesCreados = {};
 
 function recalcularAvances() {
-    // Resetear y recalcular basado en lo que realmente existe en la BD
-    avancesCreados = {};
+    // Solo marcar los que ya existen, NUNCA borrar los que ya marcamos
     var porFase = {};
     partidosActuales.forEach(function(p) {
         var fase = (p.fase || '').toLowerCase();
@@ -1600,7 +1632,6 @@ function recalcularAvances() {
         if (!porFase[fase]) porFase[fase] = [];
         porFase[fase].push(p);
     });
-    // Marcar como creados los slots que ya tienen partido en la siguiente fase
     Object.keys(porFase).forEach(function(faseKey) {
         var siguienteFase = null;
         Object.keys(MAPA_FASES).forEach(function(k) {
@@ -1643,14 +1674,20 @@ function procesarAvanceAutomatico() {
             return (px.fase || '').toLowerCase() === siguienteFase.toLowerCase();
         });
 
+        // Calcular cuantos partidos DEBERIA haber en la siguiente fase
+        var numParejasEsperadas = Math.floor(partidos.length / 2);
+
         for (var i = 0; i < partidos.length; i += 2) {
             var p1 = partidos[i];
             var p2 = partidos[i + 1];
-            var ganador1 = p1 ? obtenerGanador(p1) : null;
-            var ganador2 = p2 ? obtenerGanador(p2) : null;
+            // Si no hay segundo partido en la pareja, saltar
+            if (!p2) continue;
+            // AMBOS deben estar finalizados para crear la siguiente llave
+            if (p1.estadoPartido !== 'finalizado' || p2.estadoPartido !== 'finalizado') continue;
+            var ganador1 = obtenerGanador(p1);
+            var ganador2 = obtenerGanador(p2);
 
-            // Necesita al menos un ganador para actuar
-            if (!ganador1 && !ganador2) continue;
+            if (!ganador1 || !ganador2) continue;
 
             var eq1 = ganador1 ? ganador1.nombre : 'Por definir';
             var esc1 = ganador1 ? ganador1.escudo : '';
@@ -1659,10 +1696,13 @@ function procesarAvanceAutomatico() {
             var slotIndex = Math.floor(i / 2);
             var claveAvance = faseKey + '_' + slotIndex;
 
+            // Buscar partido existente que corresponda a este slot
             var partidoExistente = partidosSiguiente[slotIndex];
 
+            // Si ya hay mas partidos en la siguiente fase de los esperados, no crear mas
+            if (!partidoExistente && partidosSiguiente.length >= numParejasEsperadas) continue;
+
             if (!partidoExistente) {
-                // Solo crear si no lo hemos creado antes en esta sesion
                 if (avancesCreados[claveAvance]) continue;
                 avancesCreados[claveAvance] = true;
 
@@ -1678,20 +1718,17 @@ function procesarAvanceAutomatico() {
             } else {
                 avancesCreados[claveAvance] = true;
 
-                // Verificar si hay que actualizar alguno de los dos equipos
                 var necesitaUpdate = false;
                 var nuevoEq1 = partidoExistente.equipo1;
                 var nuevoEsc1 = partidoExistente.escudo1 || '';
                 var nuevoEq2 = partidoExistente.equipo2;
                 var nuevoEsc2 = partidoExistente.escudo2 || '';
 
-                // Si ganador1 existe y el local actual es diferente o es "Por definir"
                 if (ganador1 && (nuevoEq1 === 'Por definir' || nuevoEq1 !== eq1)) {
                     nuevoEq1 = eq1;
                     nuevoEsc1 = esc1;
                     necesitaUpdate = true;
                 }
-                // Si ganador2 existe y el visitante actual es diferente o es "Por definir"
                 if (ganador2 && (nuevoEq2 === 'Por definir' || nuevoEq2 !== eq2)) {
                     nuevoEq2 = eq2;
                     nuevoEsc2 = esc2;
