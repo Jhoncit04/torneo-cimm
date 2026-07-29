@@ -21,6 +21,12 @@
             0%, 100% { box-shadow: 0 0 20px rgba(52,211,153,0.6), 0 0 0 0 rgba(52,211,153,0.4); }
             50% { box-shadow: 0 0 35px rgba(52,211,153,0.9), 0 0 0 10px rgba(52,211,153,0); }
         }
+        @keyframes glowBorder {
+            0% { border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.3); }
+            50% { border-color: #00e676; box-shadow: 0 0 15px rgba(0, 230, 118, 0.4); }
+            100% { border-color: #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+        }
+        .premio-box { animation: glowBorder 3s infinite alternate; }
         .animate-modal { animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-balon { animation: balondrop 1.2s infinite ease-in-out; }
         .animate-pulse-btn { animation: pulse-btn 2s ease-in-out infinite; }
@@ -103,7 +109,7 @@
                 <p class="text-slate-300 text-sm mt-2 max-w-2xl">Un torneo relámpago organizado en una sola jornada para fomentar la actividad física y el compañerismo en el CIMM.</p>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl shadow-xl space-y-4">
                 <h3 class="text-lg font-extrabold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
                     <i data-lucide="info" class="w-5 h-5"></i> Detalles de la Jornada
@@ -119,11 +125,21 @@
                 <h3 class="text-lg font-extrabold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
                     <i data-lucide="qr-code" class="w-5 h-5"></i> Recaudo e Inscripción
                 </h3>
+                <!-- PREMIACIÓN OFICIAL -->
+                <div class="premio-box" style="background:#1e293b; border:1px solid #ffd700; border-radius:8px; padding:12px 15px;">
+                    <p style="margin:0 0 12px 0; font-size:13px; font-weight:900; color:#ffd700; text-transform:uppercase; letter-spacing:0.5px;">🏆 Premiación Oficial</p>
+                    <ul style="list-style:none; padding:0; margin:0; color:#cbd5e1; line-height:2;">
+                        <li style="font-size:1.1rem;">🏆 <strong style="color:#e2e8f0;">Campeón:</strong> <strong style="color:#fbbf24; font-size:1.2rem;">$140.000 COP</strong> + Medallas</li>
+                        <li style="font-size:1.1rem;">🥈 <strong style="color:#e2e8f0;">Subcampeón:</strong> <strong style="color:#fbbf24; font-size:1.2rem;">$80.000 COP</strong> + Medallas</li>
+                        <li style="font-size:12px;">🧤⚽ <strong style="color:#e2e8f0;">Valla Menos Vencida y Goleador:</strong> Medallas</li>
+                    </ul>
+                    <p style="margin:8px 0 0 0; font-size:10px; color:#64748b; font-style:italic;">Nota: La premiación se garantiza con un mínimo de 8 equipos inscritos.</p>
+                </div>
                 <p class="text-xs text-slate-400">Para cubrir la medallería y el pozo del premio, se solicita una cuota mínima por equipo.</p>
                 <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-2">
                     <div class="flex justify-between items-center text-sm">
                         <span class="font-bold text-slate-300">Valor Inscripción:</span>
-                        <span class="font-black text-emerald-400 text-base">$ XX.000 COP</span>
+                        <span class="font-black text-emerald-400 text-base">$ 60.000 COP</span>
                     </div>
                     <div class="flex justify-between items-center text-xs text-slate-400">
                         <span>Métodos de Pago:</span>
@@ -259,7 +275,11 @@
                 </div>
                 <table class="w-full text-left text-sm">
                     <thead class="bg-slate-800 text-slate-400 uppercase text-xs">
-                        <tr><th class="p-2 rounded-tl-lg">Jugador</th><th class="p-2">Equipo</th><th class="p-2 text-center rounded-tr-lg">⚽</th></tr>
+                        <tr>
+                            <th class="p-2 rounded-tl-lg text-center w-10">Pos</th>
+                            <th class="p-2">Jugador / Equipo</th>
+                            <th class="p-2 text-center rounded-tr-lg">⚽</th>
+                        </tr>
                     </thead>
                     <tbody id="tablaGoleadores" class="divide-y divide-slate-800">
                         <tr><td colspan="3" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>
@@ -276,12 +296,19 @@
                 </div>
                 <table class="w-full text-left text-sm">
                     <thead class="bg-slate-800 text-slate-400 uppercase text-xs">
-                        <tr><th class="p-2 rounded-tl-lg">Portero</th><th class="p-2">Equipo</th><th class="p-2 text-center rounded-tr-lg">🧤</th></tr>
+                        <tr>
+                            <th class="p-2 rounded-tl-lg text-center w-10">Pos</th>
+                            <th class="p-2">Portero / Equipo</th>
+                            <th class="p-2 text-center">PJ</th>
+                            <th class="p-2 text-center">GE</th>
+                            <th class="p-2 text-center rounded-tr-lg">Promedio</th>
+                        </tr>
                     </thead>
                     <tbody id="tablaValla" class="divide-y divide-slate-800">
-                        <tr><td colspan="3" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>
+                        <tr><td colspan="5" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>
                     </tbody>
                 </table>
+                <p class="text-[10px] text-slate-500 mt-3 italic text-center">Nota: Califican para la medalla los porteros con un mínimo de 2 partidos jugados.</p>
             </div>
         </div>
         <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl shadow-xl">
@@ -589,7 +616,7 @@ var equiposRegistrados = [];
 var intervaloReloj = null;
 var eventoActual = null;
 var waUrlActual = '';
-var datosEstadisticas = { goles: [], tarjetas: [], porteros: [] };
+var datosEstadisticas = { goles: [], tarjetas: [], porteros: [], arqueros: [] };
 var faltasPartido = {};
 
 var COLORES_FASE = [
@@ -962,7 +989,12 @@ async function cargarEquiposRegistrados() {
 async function cargarEstadisticas() {
     try {
         var data = await apiGet('listarEventos');
-        datosEstadisticas = data || { goles:[], tarjetas:[], porteros:[], habilitados:[] };
+        datosEstadisticas = data || { goles:[], tarjetas:[], porteros:[], habilitados:[], arqueros:[] };
+        // Cargar arqueros desde la pestaña dedicada
+        try {
+            var arq = await apiGet('vallaMenosVencida');
+            datosEstadisticas.arqueros = arq || [];
+        } catch(e) { datosEstadisticas.arqueros = []; }
         document.getElementById('estadoEstadisticas').textContent = '🟢 Actualizado';
         renderizarEstadisticas();
     } catch(err) {
@@ -1462,32 +1494,41 @@ function renderizarEstadisticas() {
     }).sort(function(a,b){return b.goles-a.goles;});
     document.getElementById('tablaGoleadores').innerHTML = lg.length
         ? lg.map(function(g,i){
-            return '<tr class="'+(i%2===0?'':'bg-slate-800/30')+' hover:bg-slate-800/50">'
-                +'<td class="p-2 font-bold text-slate-200">'+g.jugador+'</td>'
-                +'<td class="p-2 text-slate-400 text-xs">'+g.equipo+'</td>'
-                +'<td class="p-2 text-center font-black text-emerald-400">'+g.goles+'</td></tr>';
+            var pos = i + 1;
+            var trofeo = pos === 1 ? ' 🏆' : '';
+            var highlightRow = pos === 1 ? 'bg-emerald-500/10 border-l-2 border-emerald-400' : (i % 2 === 0 ? '' : 'bg-slate-800/30');
+            return '<tr class="' + highlightRow + ' hover:bg-slate-800/50">'
+                +'<td class="p-2 text-center font-black text-slate-300 text-xs">' + pos + trofeo + '</td>'
+                +'<td class="p-2"><span class="font-bold text-slate-200 text-xs">' + g.jugador + '</span><br><span class="text-[10px] text-slate-500">' + g.equipo + '</span></td>'
+                +'<td class="p-2 text-center font-black text-emerald-400 text-sm">' + g.goles + '</td></tr>';
         }).join('')
         : '<tr><td colspan="3" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>';
 
-    // Valla menos vencida
-    var vm = {};
-    (datosEstadisticas.porteros||[]).forEach(function(p){ if(!vm[p.equipo]) vm[p.equipo]={portero:p.jugador,encajados:0}; });
-    (partidosActuales||[]).forEach(function(p){
-        if(p.estadoPartido==='finalizado'||p.estadoPartido==='en_vivo'){
-            if(vm[p.equipo1]) vm[p.equipo1].encajados+=Number(p.marcador2||0);
-            if(vm[p.equipo2]) vm[p.equipo2].encajados+=Number(p.marcador1||0);
-        }
+    // Valla menos vencida (desde pestaña Arqueros)
+    var arqueros = datosEstadisticas.arqueros || [];
+    // Ordenar: priorizar >= 2 PJ, luego menor promedio, luego más PJ
+    arqueros.sort(function(a, b) {
+        var aCalifica = a.pj >= 2 ? 0 : 1;
+        var bCalifica = b.pj >= 2 ? 0 : 1;
+        if (aCalifica !== bCalifica) return aCalifica - bCalifica;
+        if (a.promedio !== b.promedio) return a.promedio - b.promedio;
+        return b.pj - a.pj;
     });
-    var lv = Object.keys(vm).map(function(eq){ return {equipo:eq,portero:vm[eq].portero,encajados:vm[eq].encajados}; })
-        .sort(function(a,b){return a.encajados-b.encajados;});
-    document.getElementById('tablaValla').innerHTML = lv.length
-        ? lv.map(function(v,i){
-            return '<tr class="'+(i%2===0?'':'bg-slate-800/30')+' hover:bg-slate-800/50">'
-                +'<td class="p-2 font-bold text-slate-200">'+v.portero+'</td>'
-                +'<td class="p-2 text-slate-400 text-xs">'+v.equipo+'</td>'
-                +'<td class="p-2 text-center font-black text-blue-400">'+v.encajados+'</td></tr>';
+    document.getElementById('tablaValla').innerHTML = arqueros.length
+        ? arqueros.map(function(v, i) {
+            var pos = i + 1;
+            var trofeo = pos === 1 && v.pj >= 2 ? ' 🏆' : '';
+            var highlightRow = pos === 1 && v.pj >= 2 ? 'bg-blue-500/10 border-l-2 border-blue-400' : (i % 2 === 0 ? '' : 'bg-slate-800/30');
+            var califica = v.pj >= 2;
+            var opacidad = califica ? '' : 'opacity-50';
+            return '<tr class="' + highlightRow + ' hover:bg-slate-800/50 ' + opacidad + '">'
+                + '<td class="p-2 text-center font-black text-slate-300 text-xs">' + pos + trofeo + '</td>'
+                + '<td class="p-2"><span class="font-bold text-slate-200 text-xs">' + v.nombre + '</span><br><span class="text-[10px] text-slate-500">' + v.equipo + '</span></td>'
+                + '<td class="p-2 text-center font-bold text-slate-300 text-xs">' + v.pj + '</td>'
+                + '<td class="p-2 text-center font-bold text-slate-300 text-xs">' + v.ge + '</td>'
+                + '<td class="p-2 text-center font-black text-blue-400 text-sm">' + v.promedio.toFixed(2) + '</td></tr>';
         }).join('')
-        : '<tr><td colspan="3" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>';
+        : '<tr><td colspan="5" class="p-4 text-center text-slate-500 text-xs">Sin datos aún</td></tr>';
 
     // Sanciones
     var cs = {};
